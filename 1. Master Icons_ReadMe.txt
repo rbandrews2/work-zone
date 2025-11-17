@@ -1,0 +1,54 @@
+1. Master Icons (Option C – how to use what you already have)
+
+Use the striped WZOS square (no text) as your single master icon and export it in these three “hero” sizes; your app builder can scale everything else from there.
+
+a) iOS master icon
+
+Size: 1024 × 1024 px
+
+Format: PNG
+
+Background: Transparent
+
+Content: Center the WZOS striped square, leave ~12–15% padding on all sides.
+
+b) Android adaptive master
+
+Foreground:
+
+1024 × 1024 px PNG
+
+Transparent background
+
+WZOS square centered, ~60–70% of width (plenty of padding).
+
+Background:
+
+1024 × 1024 px PNG
+
+Solid brand color (e.g., #FFB300 safety yellow or deep charcoal).
+Most app builders will accept a single 1024 PNG and generate adaptive variants automatically; if that’s the case, just give it the same master icon as iOS.
+
+c) PWA master icon
+
+Size: 512 × 512 px
+
+Format: PNG
+
+Background: Transparent
+
+Same artwork as iOS, just exported at 512.
+
+d) Splash screen (uses Version B: square + “WORK ZONE OS” + ©)
+
+Size: 2048 × 2048 px (safe for all densities; your tool will crop center).
+
+Background: Brand color or dark grey.
+
+Artwork:
+
+Full logo (striped square + “WORK ZONE OS” + small © bottom-right of block).
+
+Centered, occupying ~40–50% of width.
+
+Once you export those 4 images, your app creator can generate all required resolutions (iOS icons, Android mipmaps, PWA icons) from them.
