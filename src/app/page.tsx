@@ -1,107 +1,146 @@
-import { GlassCard } from "@/components/GlassCard"
-import Link from "next/link"
+import {
+  LayoutDashboard,
+  ClipboardList,
+  AlertTriangle,
+  Truck,
+  FileText,
+  MessageSquare,
+  MapPin,
+  CheckCircle2,
+  Clock,
+  Wrench,
+} from "lucide-react"
 
-export default function Home() {
+const kpis = [
+  {
+    label: "Active Work Zones",
+    value: "7",
+    trend: "+2 today",
+    badge: "Live",
+  },
+  {
+    label: "Open DVIRs",
+    value: "14",
+    trend: "3 need review",
+    badge: "Inspections",
+  },
+  {
+    label: "Crew On Shift",
+    value: "22",
+    trend: "4 crews deployed",
+    badge: "Field",
+  },
+  {
+    label: "Safety Alerts",
+    value: "3",
+    trend: "1 critical",
+    badge: "Risk",
+  },
+]
+
+const workZones = [
+  {
+    id: "WZ-2401",
+    route: "I-81 SB",
+    location: "MP 138–141",
+    status: "Active",
+    window: "09:00–15:00",
+    trafficControl: "Lane closure",
+    risk: "High",
+  },
+  {
+    id: "WZ-2402",
+    route: "US-460",
+    location: "Orange Ave – 10th St",
+    status: "Planned",
+    window: "Tonight 22:00",
+    trafficControl: "Flagging",
+    risk: "Medium",
+  },
+  {
+    id: "WZ-2403",
+    route: "Peters Creek Rd",
+    location: "NW Roanoke",
+    status: "Active",
+    window: "All day",
+    trafficControl: "Shoulder",
+    risk: "Low",
+  },
+]
+
+const alerts = [
+  {
+    type: "Critical",
+    title: "Missing post-trip DVIR",
+    message: "Vehicle #112 left site without completed post-trip inspection.",
+    time: "12 min ago",
+  },
+  {
+    type: "Warning",
+    title: "Expiring certification",
+    message: "2 flaggers have certifications expiring within 30 days.",
+    time: "Today • 07:45",
+  },
+  {
+    type: "Info",
+    title: "New work zone template",
+    message: "VDOT lane closure template added to library.",
+    time: "Yesterday",
+  },
+]
+
+const quickActions = [
+  {
+    icon: ClipboardList,
+    label: "Start DVIR",
+    description: "Pre / post trip inspection",
+    href: "/dvir",
+  },
+  {
+    icon: MapPin,
+    label: "Create Work Zone",
+    description: "Define limits, hours & TCP",
+    href: "/workzones",
+  },
+  {
+    icon: FileText,
+    label: "Log Daily Report",
+    description: "MUTCD + internal notes",
+    href: "/reports",
+  },
+  {
+    icon: MessageSquare,
+    label: "Crew Messages",
+    description: "Broadcast to field teams",
+    href: "/messages",
+  },
+]
+
+export default function DashboardPage() {
   return (
-    <div className="min-h-[85vh] flex flex-col items-center justify-center text-white py-10">
-
-      {/* Hero Section */}
-      <div className="text-center mb-10">
-        <h1 className="text-5xl font-extrabold mb-4 tracking-wide">
-          Work Zone <span className="text-wz_yellow">OS</span>
-        </h1>
-        <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-          The next-generation productivity, safety, and communication platform 
-          for road crews, contractors, and workforce teams.
-        </p>
-      </div>
-
-      {/* Hero Visual */}
-      <div className="w-full max-w-5xl mb-12">
-        <div className="
-          bg-wz_glass 
-          backdrop-blur-md 
-          border border-wz_border 
-          rounded-xl 
-          shadow-glow
-          p-10
-          flex flex-col md:flex-row
-          gap-8
-          items-center
-          justify-center
-        ">
-          <div className="text-center md:text-left space-y-4">
-            <h2 className="text-3xl font-bold">
-              Built for Safety. Powered by Intelligence.
-            </h2>
-            <p className="text-gray-300">
-              A unified system connecting jobsites, teams, training modules, 
-              messaging, and AI-assisted workflows — all in one place.
-            </p>
-
-            {/* Call to Action */}
-            <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
-              <Link
-                href="/signup"
-                className="px-5 py-2 bg-wz_yellow font-semibold rounded hover:bg-wz_yellow_glow hover:text-black transition"
-              >
-                Create Account
-              </Link>
-
-              <Link
-                href="/login"
-                className="px-5 py-2 border border-wz_yellow rounded hover:bg-wz_yellow hover:text-black transition"
-              >
-                Sign In
-              </Link>
+    <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50">
+      {/* Top shell */}
+            <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-10 pt-6 sm:px-6 lg:px-8">
+              {/* Header */}
+              <header className="flex flex-col gap-4 border-b border-white/5 pb-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center space-x-3">
+                  <LayoutDashboard className="h-6 w-6" />
+                  <div>
+                    <h1 className="text-xl font-semibold">Dashboard</h1>
+                    <p className="text-sm text-slate-300">Overview of operations</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button className="rounded bg-slate-800 px-3 py-1 text-sm">New Work Zone</button>
+                  <button className="rounded bg-slate-700 px-3 py-1 text-sm">Settings</button>
+                </div>
+              </header>
+      
+              {/* Content placeholder */}
+              <section className="pt-6">
+                <p className="text-sm text-slate-300">Content goes here.</p>
+              </section>
             </div>
-          </div>
-
-          {/* Visual Placeholder Card */}
-          <div className="
-            w-full md:w-1/2
-            bg-wz_card 
-            backdrop-blur-md 
-            rounded-xl 
-            border border-wz_border 
-            shadow-inset_glow
-            p-6 text-center
-          ">
-            <p className="text-gray-400 text-sm mb-4">
-              Future Interactive Dashboard Preview
-            </p>
-            <div className="h-40 bg-wz_glass rounded-lg border border-wz_border shadow-glow"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer Mini-Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl px-4">
-        <GlassCard>
-          <h3 className="text-xl font-semibold mb-2">Smart Training</h3>
-          <p className="text-gray-300 text-sm">
-            Integrated safety courses, refresher modules, certifications, 
-            and AI-assisted learning.
-          </p>
-        </GlassCard>
-
-        <GlassCard>
-          <h3 className="text-xl font-semibold mb-2">Crew Messaging</h3>
-          <p className="text-gray-300 text-sm">
-            Communicate instantly. Share info, instructions, and job details 
-            across teams.
-          </p>
-        </GlassCard>
-
-        <GlassCard>
-          <h3 className="text-xl font-semibold mb-2">Job Board</h3>
-          <p className="text-gray-300 text-sm">
-            Post, accept, and organize shifts, crew requests, and jobsite 
-            assignments with ease.
-          </p>
-        </GlassCard>
-      </div>
-
-    </div>
-  )
-}
+          </main>
+        )
+      }

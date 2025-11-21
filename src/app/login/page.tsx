@@ -1,78 +1,115 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase/client";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const supabase = createClient()
+  const router = useRouter();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleLogin = async (e: any) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (event: FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
-      password
-    })
+      password,
+    });
+
+    setLoading(false);
 
     if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
+      setError(error.message);
+      return;
     }
 
-    router.push('/app/dashboard')
-  }
+    // On success, redirect to dashboard/home
+    router.push("/");
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form 
-        onSubmit={handleLogin}
-        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
-      >
-        <h1 className="text-2xl font-bold mb-4">Work Zone OS</h1>
-
-        <input 
-          type="email"
-          placeholder="Email"
-          className="input"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-
-        <input 
-          type="password"
-          placeholder="Password"
-          className="input mt-2"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-
-        {error && <p className="text-red-600 mt-2">{error}</p>}
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-yellow-500 w-full py-2 mt-4 rounded text-black font-semibold hover:bg-yellow-600"
-        >
-          {loading ? "Logging in..." : "Log In"}
-        </button>
-
-        <p className="mt-4 text-center text-sm">
-          Don’t have an account?{" "}
-          <a href="/signup" className="text-blue-600 underline">
-            Create one
-          </a>
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
+      <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/80 p-8 shadow-xl">
+        <h1 className="text-2xl font-semibold text-slate-50 mb-2">
+          Log in to Work Zone OS
+        </h1>
+        <p className="text-sm text-slate-400 mb-6">
+          Enter your credentials to access your dashboard.
         </p>
-      </form>
+
+        {error && (
+          <div className="mb-4 rounded-lg border border-red-500/50 bg-red-500/10 px-3 py-2 text-xs text-red-200">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div className="space-y-1.5">
+            <label
+              htmlFor="email"
+              className="block text-xs font-medium uppercase tracking-wide text-slate-300"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              autoComplete="email"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="space-y-1.5">
+            <label
+              htmlFor="password"
+              className="block text-xs font-medium uppercase tracking-wide text-slate-300"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              autoComplete="current-password"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="mt-2 inline-flex w-full items-center justify-center rounded-lg bg-amber-400 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-sm transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {loading ? "Logging in..." : "Log in"}
+          </button>
+        </form>
+
+        <p className="mt-6 text-xs text-slate-400 text-center">
+          Do not have an account?{" "}
+          <button
+            type="button"
+            onClick={() => router.push("/signup")}
+            className="font-medium text-amber-300 hover:text-amber-200 underline-offset-2 hover:underline"
+          >
+            Create one
+          </button>
+        </p>
+      </div>
     </div>
-  )
+  );
 }

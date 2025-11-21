@@ -1,11 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  background: radial-gradient(circle at top left, #111 0%, #000 60%);
-}
-tml, body {
+@import "tailwindcss";
+html, body {
   margin: 0;
   padding: 0;
   min-height: 100%;
@@ -13,6 +7,7 @@ tml, body {
   color: #fff;
   font-family: system-ui, sans-serif;
 }
+
 
 * {
   box-sizing: border-box;

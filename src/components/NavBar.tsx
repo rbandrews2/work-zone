@@ -8,6 +8,8 @@ const links = [
   { href: "/training", label: "Training" },
   { href: "/jobs", label: "Jobs" },
   { href: "/messages", label: "Messages" },
+  { href: "/dashboard/ai-vision", label: "AI Vision" },
+
 ]
 
 export function NavBar() {
@@ -49,6 +51,11 @@ export function NavBar() {
           >
             Login
           </Link>
+
+          {/* App version (from env) */}
+          <span className="ml-4 text-xs text-slate-400 hidden sm:inline">
+            {process.env.NEXT_PUBLIC_APP_VERSION ?? "V0.04"}
+          </span>
         </div>
 
       </div>
